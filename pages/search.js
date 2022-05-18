@@ -7,6 +7,7 @@ import { BsFilter } from "react-icons/bs";
 import Property from "../components/Property";
 import SearchFilters from "../components/SearchFilters";
 import noresult from "../assets/images/noresult.svg";
+import { fetchApi, baseUrl } from "../utils/fetchApi";
 
 const Search = ({ properties }) => {
   const [searchFilters, setSearchFilters] = useState(false);
@@ -55,9 +56,7 @@ const Search = ({ properties }) => {
   );
 };
 
-export default Search;
-
-export async function getStaticProps({ query }) {
+export async function getServerSideProps({ query }) {
   const purpose = query.purpose || "for-rent";
   const rentFrequency = query.rentFrequency || "yearly";
   const minPrice = query.minPrice || "0";
@@ -77,3 +76,5 @@ export async function getStaticProps({ query }) {
     props: { properties: data?.hits },
   };
 }
+
+export default Search;
